@@ -1,1 +1,34 @@
-
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Transfusión</title>
+    <style>
+        body { text-align: center; font-family: Arial, sans-serif; }
+        .container { display: flex; justify-content: center; margin-top: 50px; }
+        .patient, .blood-bag { margin: 20px; padding: 20px; border: 2px solid black; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Elige el paciente correcto para la transfusión</h1>
+    <div class="blood-bag" id="bloodBag">Tipo de Sangre: A+</div>
+    <div class="container">
+        <div class="patient" id="patient1" data-blood="A+">Paciente 1: A+</div>
+        <div class="patient" id="patient2" data-blood="B-">Paciente 2: B-</div>
+    </div>
+    <p id="message"></p>
+    <script>
+        document.querySelectorAll('.patient').forEach(patient => {
+            patient.addEventListener('click', function() {
+                let bloodType = document.getElementById('bloodBag').textContent.split(': ')[1];
+                if (this.dataset.blood === bloodType) {
+                    document.getElementById('message').textContent = '¡Correcto! El paciente es compatible.';
+                } else {
+                    document.getElementById('message').textContent = 'Incorrecto. Este paciente no es compatible.';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
