@@ -1,0 +1,46 @@
+<script>
+    const patients = [
+        { type: "A+", compatible: ["A+", "A-", "O+", "O-"] },
+        { type: "B+", compatible: ["B+", "B-", "O+", "O-"] },
+        { type: "O-", compatible: ["O-"] }
+    ];
+    
+    let patientIndex = 0;
+
+    function loadPatient() {
+        if (patientIndex < patients.length) {
+            let currentPatient = patients[patientIndex];
+            document.getElementById("patient").innerText = `Paciente con sangre: ${currentPatient.type}`;
+            document.getElementById("options").innerHTML = "";
+            document.getElementById("result").innerText = "";
+            
+            let bloodTypes = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
+            bloodTypes.forEach(type => {
+                let button = document.createElement("button");
+                button.className = "blood-option";
+                button.innerText = type;
+                button.onclick = () => checkCompatibility(type, currentPatient);
+                document.getElementById("options").appendChild(button);
+            });
+        } else {
+            document.getElementById("patient").innerText = "Juego terminado";
+            document.getElementById("options").innerHTML = "";
+            document.getElementById("nextBtn").style.display = "none";
+        }
+    }
+
+    function checkCompatibility(selected, patient) {
+        if (patient.compatible.includes(selected)) {
+            document.getElementById("result").innerText = "✅ ¡Correcto! Esta sangre es compatible.";
+        } else {
+            document.getElementById("result").innerText = "❌ Incorrecto. Intenta de nuevo.";
+        }
+    }
+    
+    function nextPatient() {
+        patientIndex++;
+        loadPatient();
+    }
+
+    loadPatient();
+</script>
